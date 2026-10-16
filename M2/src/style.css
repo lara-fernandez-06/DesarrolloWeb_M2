@@ -1,52 +1,62 @@
 @font-face {
-  font-family: 'test';
-  src: url('assets/fonts/quicksand_n7.d375fe11182475f82f7bb6306a0a0e4018995610.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
+    font-family: 'Norse';
+    font-style: normal;
+    font-weight: normal;
+    font-display: auto;
+    src: url('./assets/fonts/Norsebold.ttf');
 }
 
-header {
-  /* Siempre incluye fuentes alternativas por seguridad (ej. sans-serif) */
-  font-family: 'test', sans-serif; 
+body {
+    background-color: var(--stone-dark);
+    color: #d1d5db;
+    font-family: 'Norse', sans-serif;
+
+    /*VARIABLES PARA TODO EL CSS*/
+    --stone-dark: #0f131a;
+    --stone-card: #161b22;
+    --nordic-frost: #8b9bb4;
+    --rune-gold: #f3c653;
+    --rune-gold-glow: rgba(243, 198, 83, 0.4);
 }
 
-/*ESTILOS GENERALES */
+.rune-header {
+    width: 100%;
+    background-color: var(--stone-dark);
+}
+
+.rune-banner {
+    background: linear-gradient(135deg, #131720 0%, #090b0e 100%);
+    border-bottom: 3px solid var(--rune-gold);
+    padding: 3rem 1rem 1.5rem 1rem;
+    text-align: center;
+    color: #f3f3f3;
+    /* resplandor dorado en la caja */
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(243, 198, 83, 0.05);
+    background-image: url('assets/img/stoneBG.jpg');
+}
+
+.banner-title {
+    font-size: 3.2rem;
+    letter-spacing: 4px;
+    margin-bottom: 0.5rem;
+    color: var(--rune-gold);
+    text-shadow: 0 0 12px var(--rune-gold-glow), 0 2px 4px rgba(0, 0, 0, 0.9);
+}
+
+.banner-subtitle {
+    font-size: 1.2rem;
+    color: var(--nordic-frost);
+    margin-bottom: 2rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/*ESTILO GENERAL */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-body {
-    background-color: #0d1117; 
-    color: #c9d1d9;
-    font-family: 'Lora', serif;
-    overflow-x: hidden;
-}
-
-
-.hero {
-    text-align: center;
-    padding: 80px 20px 40px 20px;
-    background: linear-gradient(to bottom, #161b22, #0d1117);
-}
-
-.hero h1 {
-    /* Aquí aplicamos la fuente personalizada 'test' que configuraste */
-    font-family: 'test', 'Cinzel', serif;
-    font-size: 2.8rem;
-    color: #f0f6fc;
-    margin-bottom: 15px;
-    letter-spacing: 2px;
-    text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
-}
-
-.hero p {
-    font-size: 1.1rem;
-    color: #8b949e;
-    max-width: 600px;
-    margin: 0 auto;
 }
 
 /* CONTENEDOR DE TARJETAS (GRID) */

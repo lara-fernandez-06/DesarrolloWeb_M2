@@ -1,31 +1,36 @@
+import * as cache from './localStorage.js'
+
 const NORSE_URL = "https://raw.githubusercontent.com/ksherbondy/norse-heathenry-pagan-api-dataset/main/JSON-files"
-const RUNES = "elder-futhark-v3.json"
+export const elderFuthark = {cacheKey:"elderFuthark", file:"elder-futhark-v3.json"};
 
-const data = getFullFile(RUNES);
+export async function getFullFile(fileObj) {
 
-export async function getFullFile(file) {
-  try {
-    const answer = await fetch(`${NORSE_URL}/${file}`);
+    //si esta en la cache no hacemos fetch
+    const cached = cache.getLocalCache(fileObj.cacheKey);
+    if(cached) return cached;
 
-    // fetch NO rechaza con errores HTTP (404, 500): hay que comprobar ok
-    if (!answer.ok) {
-      throw new Error(`HTTP ${answer.status}: ${answer.statusText}`);
+    try {
+        const answer = await fetch(`${NORSE_URL}/${fileObj.file}`);
+
+        // fetch NO rechaza con errores HTTP (404, 500): hay que comprobar ok
+        if (!answer.ok) {
+        throw new Error(`HTTP ${answer.status}: ${answer.statusText}`);
+        }
+
+        const data = await answer.json();
+
+        if (!Array.isArray(data)) {
+            throw new Error("El archivo no contiene una lista válida.");
+        }
+
+        cache.setLocalCache(fileObj.cacheKey, data);
+
+        return data;
+
+    }catch (error){
+        console.error("No se pudo cargar el archivo", error.message);
+        return null;
     }
-
-    const data = await answer.json();
-
-    if (!Array.isArray(data)) {
-        throw new Error("El archivo no contiene una lista válida.");
-    }
-
-    
-
-    return data;
-
-  }catch (error){
-    console.error("No se pudo cargar el archivo", error.message);
-    return [];
-  }
 }
 
 
