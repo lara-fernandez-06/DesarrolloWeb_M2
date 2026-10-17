@@ -1,4 +1,5 @@
-import * as cache from './localStorage.js'
+import * as cache from './cache.js'
+import * as ui from './ui.js'
 
 const NORSE_URL = "https://raw.githubusercontent.com/ksherbondy/norse-heathenry-pagan-api-dataset/main/JSON-files"
 export const elderFuthark = {cacheKey:"elderFuthark", file:"elder-futhark-v3.json"};
@@ -29,27 +30,8 @@ export async function getFullFile(fileObj) {
 
     }catch (error){
         console.error("No se pudo cargar el archivo", error.message);
-        return null;
+        const container = document.querySelector('#runes-container');
+        ui.showError(container);
+        return [];
     }
 }
-
-
-function checkFile(data, expectedKeys) {
-   
-    // Validamos el primer elemento (o recorremos todos) para asegurar que tiene las claves correctas
-    const firstObj = data[0];
-
-    const hasAllKeys = expectedKeys.every(key => key in firstObj);
-
-    if (!hasAllKeys) {
-        return false;
-    }
-
-    return true; 
-}
-
-export function checkRunesFile(data){
-    const objKeys = ['rune_id', 'system', 'era', 'character', 'name', 'phonetic', 'literal_translation', 'sot_poems', 'practical_application', 'ceremony_roadmap', 'source_reference'];
-    return checkFile(data, objKeys);
-}
-

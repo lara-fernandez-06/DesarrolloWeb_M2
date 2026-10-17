@@ -22,6 +22,9 @@ async function startWeb(){
   cardsContainer.addEventListener('click', (e) => {
 
     const card = e.target.closest('.rune-card');
+
+    if(!card) return;
+
     card.classList.toggle('is-flipped');
   });
 
@@ -31,9 +34,13 @@ async function startWeb(){
 
 async function showCards(filterText=""){
 
+  //mensaje de loading
+  ui.showLoading(cardsContainer);
+
   //obtenemos los datos
   const data = await db.filterCards(filterText);
 
+
   //renderizamos las tarjetas
-  ui.renderRuneCards(data);
+  if(Array.isArray(data)) ui.renderRuneCards(data);
 }

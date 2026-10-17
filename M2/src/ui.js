@@ -15,7 +15,7 @@ export function renderRuneCards(runesArray) {
     if (runesArray.length === 0) {
         const emptyMessage = document.createElement('p');
         emptyMessage.textContent = 'No se han hallado runas bajo este designio.';
-        emptyMessage.classList.add('empty-message');
+        emptyMessage.classList.add('status-message', 'empty');
         container.append(emptyMessage);
         return;
     }
@@ -63,7 +63,27 @@ export function renderRuneCards(runesArray) {
         return cardContainer;
     });
 
-    // 4. Inyectamos todas las tarjetas de golpe en el contenedor flex
+    //Inyectamos todas las tarjetas de golpe en el contenedor flex
     container.append(...cardNodes);
+}
+
+export function showLoading(container) {
+    if (!container) return;
+    
+    container.replaceChildren();
+    const loadingMsg = document.createElement('p');
+    loadingMsg.textContent = 'Invocando las runas... Cargando sabiduría...';
+    loadingMsg.classList.add('status-message', 'loading');
+    container.append(loadingMsg);
+    
+}
+
+export function showError(container) {
+    if (!container) return;
+    container.replaceChildren();
+    const errorMsg = document.createElement('p');
+    errorMsg.textContent = 'Se produjo un error';
+    errorMsg.classList.add('status-message','error');
+    container.append(errorMsg);
 }
 

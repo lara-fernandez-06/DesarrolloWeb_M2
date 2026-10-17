@@ -11,8 +11,10 @@ export async function getRuneCardInfo(){
 
     const rawData = await api.getFullFile(api.elderFuthark);
 
+    if(!Array.isArray(rawData)) return;
+
     return rawData.map(rune => ({
-            rune_id: rune.id,
+            rune_id: rune.rune_id,
             character: rune.character,
             name: rune.name,
             system: rune.system,
@@ -26,6 +28,8 @@ export async function getRuneCardInfo(){
 //dejamos a la funcion de ui que gestione el caso de que no haya nada (no vamos a renderizar nada desde aqui)
 export async function filterCards(filterText = ""){
     const unfiltered = await getRuneCardInfo();
+
+    if(!Array.isArray(unfiltered)) return;
 
     return unfiltered.filter(rune => {
         const query = filterText.toLowerCase();

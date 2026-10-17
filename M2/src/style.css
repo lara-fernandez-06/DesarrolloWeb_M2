@@ -9,7 +9,7 @@
 @font-face {
     font-family: 'TypeWriter';
     font-style: normal;
-    font-weight: normal;
+    font-weight: .7;
     font-display: auto;
     src: url('./assets/fonts/TypeWriter.ttf');
 }
@@ -103,6 +103,27 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     gap: 1.5rem;
+}
+
+.status-message {
+    font-size: 1.1rem;
+    color: #e1e1e1;
+    margin: 0;
+    line-height: 1.5;
+    font-family: inherit;
+}
+
+/* Variantes según el tipo de estado */
+.status-message.loading {
+    color: #f3c653; /* Dorado místico para el estado de carga */
+}
+
+.status-message.error {
+    color: #ff6b6b; /* Rojo sobrio para errores de red */
+}
+
+.status-message.empty {
+    color: #96a0af; /* Gris secundario para cuando la búsqueda no da resultados */
 }
 
 /* Tarjeta individual */
@@ -207,7 +228,7 @@ body {
     font-size: 0.8rem;
     border-radius: 20px;
     border: 1px solid #30363d;
-    font-family: 'Montserrat', serif;
+    font-family: 'TypeWriter', serif;
 }
 
 .empty-message {
