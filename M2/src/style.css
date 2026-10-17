@@ -6,6 +6,14 @@
     src: url('./assets/fonts/Norsebold.ttf');
 }
 
+@font-face {
+    font-family: 'TypeWriter';
+    font-style: normal;
+    font-weight: normal;
+    font-display: auto;
+    src: url('./assets/fonts/TypeWriter.ttf');
+}
+
 body {
     background-color: var(--stone-dark);
     color: #d1d5db;
@@ -98,7 +106,52 @@ body {
 }
 
 /* Tarjeta individual */
+.rune-card-container {
+    perspective: 1000px; /* Cuanto menor sea el número, más exagerado es el efecto 3D */
+    flex: 1 1 260px;
+    max-width: 300px;
+    height: 380px; /* Damos una altura fija para que el giro no deforme la tarjeta */
+    transition: transform 0.3s ease;
+}
+
+/* La propia carta que rota*/
 .rune-card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d; /* Clave para el espacio 3D */
+    transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1); /* Transición suave y elegante */
+    cursor: pointer;
+}
+
+.rune-card.is-flipped {
+    transform: rotateY(180deg);
+}
+
+.card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    -webkit-backface-visibility: hidden; /* Oculta la cara trasera cuando está mirando hacia atrás */
+    backface-visibility: hidden;
+    
+    background: linear-gradient(135deg, #141821, #0a0c10);
+    border: 1px solid #424242;
+    border-radius: 6px;
+    padding: 1.5rem;
+    box-sizing: border-box; /* Asegura que el padding no rompa las medidas */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+}
+
+/*cara de delante*/
+.card-face-front {
     background: linear-gradient(135deg, #141821, #0a0c10);
     border: 1px solid #424242; /* Gris Hierro */
     border-radius: 6px;
@@ -106,14 +159,21 @@ body {
     text-align: center;
     
     flex: 1 1 260px;
-    max-width: 300px;
     
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
     transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.rune-card:hover {
+.card-face-back {
+    transform: rotateY(180deg);
+    border-color: #f3c653; /* Un toque dorado diferenciador para la parte trasera */
+}
+
+.rune-card-container:hover{
     transform: translateY(-5px);
+}
+
+.rune-card:hover {
     border-color: var(--rune-gold);
     box-shadow: 0 10px 20px rgba(212, 175, 55, 0.15);
 }
@@ -147,7 +207,7 @@ body {
     font-size: 0.8rem;
     border-radius: 20px;
     border: 1px solid #30363d;
-    font-family: 'Norse', serif;
+    font-family: 'Montserrat', serif;
 }
 
 .empty-message {

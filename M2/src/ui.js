@@ -22,34 +22,45 @@ export function renderRuneCards(runesArray) {
 
     //Aplicamos .map() para transformar los objetos de datos en elementos del DOM
     const cardNodes = runesArray.map(rune => {
-        // Contenedor principal de la tarjeta (artículo semántico)
-        const card = document.createElement('article');
+
+        //contenedor para hacer el giro
+        const cardContainer = document.createElement('div');
+        cardContainer.classList.add('rune-card-container');
+
+        const card = document.createElement('div');
         card.classList.add('rune-card');
 
-        // Símbolo rúnico grande
+        /*--CARA DELANTERA--*/
+        const frontFace = document.createElement('div');
+        frontFace.classList.add('card-face', 'card-face-front');
+
         const symbolDiv = document.createElement('div');
         symbolDiv.classList.add('card-symbol');
         symbolDiv.textContent = rune.character;
 
-        // Nombre de la runa
         const title = document.createElement('h3');
         title.classList.add('card-title');
         title.textContent = rune.name;
 
-        //Sistema al que pertenece la runa
         const system = document.createElement('p');
         system.classList.add('card-description');
         system.textContent = rune.system;
 
-        // Traduccion
         const translation = document.createElement('span');
         translation.classList.add('card-tag');
         translation.textContent =  rune.translation;
 
-        // Ensamblamos la tarjeta
-        card.append(symbolDiv, title, system, translation);
+        frontFace.append(symbolDiv, title, system, translation);
 
-        return card;
+        /*--CARA TRASERA--*/
+        const backFace = document.createElement('div');
+        backFace.classList.add('card-face', 'card-face-back')
+
+        // Ensamblamos la tarjeta
+        card.append(frontFace, backFace);
+        cardContainer.append(card);
+
+        return cardContainer;
     });
 
     // 4. Inyectamos todas las tarjetas de golpe en el contenedor flex

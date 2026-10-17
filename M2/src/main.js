@@ -2,6 +2,7 @@ import * as db from './dataTransform.js'
 import * as ui from './ui.js'
 
 const input = document.querySelector('#rune-search');
+const cardsContainer = document.querySelector('#runes-container');
 
 startWeb();
 
@@ -16,6 +17,12 @@ async function startWeb(){
       showCards(input.value);
 
     }  
+  });
+
+  cardsContainer.addEventListener('click', (e) => {
+
+    const card = e.target.closest('.rune-card');
+    card.classList.toggle('is-flipped');
   });
 
   showCards();
