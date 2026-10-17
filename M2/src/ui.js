@@ -1,6 +1,31 @@
 
-export function renderHeaderCarousel(runesList){
+export function renderHeaderCarousel(runesList) {
 
+    const container = document.querySelector('#rune-carousel');
+
+    //si no está en el formato correcto, no lo renderizamos y así la página puede continuar sin problemas
+    if (!container || !Array.isArray(runesList)) throw new Error("Error en el carousel");
+
+    // Limpiamos el contenedor de forma nativa
+    container.replaceChildren();
+
+    // Creamos el string continuo con las runas (Símbolo + Nombre)
+    const runtextContent = runesList.map(rune => `${rune}`).join('•');
+
+    const track = document.createElement('div');
+    track.classList.add('carousel-track');
+
+    const span1 = document.createElement('span');
+    span1.classList.add('carousel-group');
+    span1.textContent = `${runtextContent}•${runtextContent}•`;
+
+    const span2 = document.createElement('span');
+    span2.classList.add('carousel-group');
+    span2.textContent = `${runtextContent}•${runtextContent}•`;
+
+    track.append(span1, span2);
+
+    container.append(track);
 }
 
 //recibe las runas ya filtradas

@@ -1,10 +1,17 @@
 import * as api from './api.js'
 import * as cache from './cache.js'
 
-export function getAllRuneSymbols(){
-    const data = api.getFullFile(api.elderFuthark);
+//la ui gestiona que ocurre si esto da error
+export async function getAllRuneSymbols(){
+    try{
+        const data = await api.getFullFile(api.elderFuthark);
 
-    return data.reduce((acc, iteration) => `${acc} ${iteration['character']}`, "");
+        return data.reduce((acc, iteration) => {acc.push(iteration['character']); return acc;}, []); //utilizamos reduce
+
+    }catch(error){
+        console.error(error.stack);
+    }
+    
 }
 
 //en esta funcion nos quedaremos las partes del json que nos interesan para las tarjetas
@@ -60,9 +67,9 @@ export async function filterCards(filterText = ""){
     if(!Array.isArray(unfiltered)) throw new Error("El archivo no contiene una lista válida.");;
 
     return unfiltered.filter(rune => {
-        const query = filterText.toLowerCase();
-        const nameMatch = rune.name.toLowerCase().includes(query);
-        const translationMatch = rune.translation && rune.translation.toLowerCase().includes(query);
+        const query = filterText?.toLowerCase();
+        const nameMatch = rune.name?.toLowerCase().includes(query);
+        const translationMatch = rune.translation && rune.translation?.toLowerCase().includes(query);
         return nameMatch || translationMatch;
     });
 }

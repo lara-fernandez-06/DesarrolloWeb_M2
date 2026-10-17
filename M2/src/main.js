@@ -28,6 +28,13 @@ async function startWeb(){
     card.classList.toggle('is-flipped');
   });
 
+  try{
+    const runes = await db.getAllRuneSymbols();
+    ui.renderHeaderCarousel(runes);
+  }catch(error){
+    console.warn(error.stack);
+  }
+  
   showCards();
   
 }
@@ -41,7 +48,6 @@ async function showCards(filterText=""){
   //capturamos aqui todos los errores. De esta forma centralizamos quien pinta el mensaje de error en la pagina web
   try{
     const data = await db.filterCards(filterText);
-
     //renderizamos las tarjetas
     if(Array.isArray(data)) ui.renderRuneCards(data);
   }catch(error){
