@@ -1,22 +1,13 @@
-import * as api from './api.js'
-const NORSE_URL = "https://raw.githubusercontent.com/ksherbondy/norse-heathenry-pagan-api-dataset/main/JSON-files"
-const AESIR = "aesir-gods.json"
-const RUNES = "elder-futhark-v3.json"
+import * as db from './dataTransform.js'
+import * as ui from './ui.js'
 
-prueba();
-async function prueba() {
-  const resp = await fetch(`${NORSE_URL}/${RUNES}`);
+startWeb();
 
-  console.log(resp);
+async function startWeb(){
 
-  if(!resp.ok){
-    console.error("Nope");
-  }else{
-    console.log("yayy");
-    const data = await resp.json(); //solo se puede leer una vez
-    console.log(Object.keys(data[0]));
-    console.log(api.checkRunesFile(data));  
-    //document.querySelector('header').textContent=  data.reduce((acc, iteration) => `${acc} ${iteration['character']}`, "");
+  //obtenemos los datos
+  const data = await db.filterCards();
 
-  }
+  //renderizamos las tarjetas
+  ui.renderRuneCards(data);
 }

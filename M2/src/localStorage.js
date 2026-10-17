@@ -10,7 +10,7 @@ export function getLocalCache(cacheKey) {
     }
 }
 
-export function setLocalCache(data, cacheKey) {
+export function setLocalCache(cacheKey, data) {
     try {
         localStorage.setItem(cacheKey, JSON.stringify(data));
     } catch (error) {

@@ -2,34 +2,33 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script type="module" src="src/main.js" defer></script>
     <link rel="stylesheet" href="src/style.css" type="text/css">
-    <title>m2</title>
+    <title>Norse Enciclopedia</title>
   </head>
   <body>
     <div id="app">
       <header class="rune-header">
         <div class="rune-banner">
-            <!-- Título principal -->
             <h1 class="banner-title">ᚠ FUTHARK CODEX ᚢ</h1>
             <p class="banner-subtitle">Explora la sabiduría ancestral de las runas germánicas</p>
         </div>
         <div class="rune-carousel">
             <div id="carousel-track" class="carousel-track">
-                <!-- Se poblará dinámicamente o se mantendrá estructurado -->
             </div>
         </div>
       </header>
-      <main class="runesContainer">
-        <article class="rune-card">
-            <div class="rune-symbol">ᚠ</div>
-            <h2 class="rune-title">Fehu</h2>
-            <p class="rune-desc">Representa la riqueza móvil, el ganado y la abundancia ganada con esfuerzo. Simboliza la energía en movimiento y la prosperidad material.</p>
-            <span class="rune-tag">Riqueza / Ganado</span>
-        </article>
-      </main>
+
+      <main class="main-content">
+        <div class="filters-container">
+            <input type="text" id="rune-search" placeholder="Busca una runa..." class="rune-input">
+        </div>
+
+        <!-- Contenedor cartas-->
+        <section id="runes-container" class="runes-flex-container"></section>
+    </main>
       
     </div>
     
