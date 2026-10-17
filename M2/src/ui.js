@@ -23,7 +23,11 @@ export function renderHeaderCarousel(runesList) {
     span2.classList.add('carousel-group');
     span2.textContent = `${runtextContent}•${runtextContent}•`;
 
-    track.append(span1, span2);
+    const span3 = document.createElement('span');
+    span3.classList.add('carousel-group');
+    span3.textContent = `${runtextContent}•${runtextContent}•`;
+
+    track.append(span1, span2, span3);
 
     container.append(track);
 }

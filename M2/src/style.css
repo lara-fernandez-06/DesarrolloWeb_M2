@@ -19,7 +19,7 @@
         transform: translateX(0);
     }
     100% {
-        transform: translateX(-50%);
+        transform: translateX(-100%);
     }
 }
 
@@ -43,7 +43,6 @@ body {
 
 .rune-banner {
     background: linear-gradient(135deg, #131720 0%, #090b0e 100%);
-    border-bottom: 3px solid var(--rune-gold);
     padding: 3rem 1rem 1.5rem 1rem;
     text-align: center;
     color: #f3f3f3;
@@ -69,33 +68,40 @@ body {
     text-transform: uppercase;
 }
 
-
 #header-carousel {
     width: 100%;
-    overflow: hidden; /* Oculta lo que sale de la pantalla */
-    background: rgba(15, 19, 26, 0.95);
-    border-bottom: 1px solid #424242;
-    padding: 0.6rem 0;
-    white-space: nowrap;
+    overflow: hidden;
+    background: #0f131a;
+    padding: 0.8rem 0;
     box-sizing: border-box;
+    white-space: nowrap;
 }
 
 .carousel-track {
-    font-size: 1.25rem; /* Letras y símbolos más grandes */
-    font-weight: 500;
-    color: #f3c653; /* Dorado místico para los símbolos/texto */
-    letter-spacing: 2px;
-    padding-right: 0.5rem;
-    animation: scrollTicker 35s linear infinite;
+    border-top: 3px solid var(--rune-gold);
+    border-bottom: 3px solid var(--rune-gold);
+    display: flex;
+    width: max-content; /* Fuerza a medir el contenido real sin comprimir */
 }
 
+.carousel-group {
+    display: flex;
+    white-space: nowrap;
+    flex-shrink: 0; /* Evita que el navegador intente encoger el bloque */
+    font-size: 1.15rem;
+    font-weight: 500;
+    color: #f3c653; /* Dorado místico */
+    letter-spacing: 2px;
+}
+
+/* Pausar al pasar el ratón */
 #header-carousel:hover .carousel-track {
     animation-play-state: paused;
 }
-
 /* Destacamos un poco más los símbolos rúnicos */
 .carousel-track span {
     color: #f3c653;
+    animation: scrollTicker 35s linear infinite;
 }
 
 
