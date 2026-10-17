@@ -19,7 +19,7 @@ export async function getFullFile(fileObj) {
     const data = await answer.json();
 
     if (!Array.isArray(data)) {
-        throw new Error("El archivo no contiene una lista válida.");
+        throw new Error("The file doesn't contain a valid list");
     }
 
     cache.setLocalCache(fileObj.cacheKey, data);

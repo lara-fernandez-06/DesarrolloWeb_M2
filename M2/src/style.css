@@ -82,6 +82,7 @@ body {
     border-bottom: 3px solid var(--rune-gold);
     display: flex;
     width: max-content; /* Fuerza a medir el contenido real sin comprimir */
+    user-select: none;
 }
 
 .carousel-group {
@@ -94,10 +95,6 @@ body {
     letter-spacing: 2px;
 }
 
-/* Pausar al pasar el ratón */
-#header-carousel:hover .carousel-track {
-    animation-play-state: paused;
-}
 /* Destacamos un poco más los símbolos rúnicos */
 .carousel-track span {
     color: #f3c653;

@@ -166,12 +166,12 @@ export function showLoading() {
     
 }
 
-export function showError() {
+export function showError(message) {
     const container = document.querySelector('#runes-container');
     if (!container) return;
     container.replaceChildren();
     const errorMsg = document.createElement('p');
-    errorMsg.textContent = 'An error occurred';
+    errorMsg.textContent = `An error occurred: ${message}`;
     errorMsg.classList.add('status-message','error');
     container.append(errorMsg);
 }

@@ -42,7 +42,7 @@ async function startWeb(){
 async function showCards(filterText=""){
 
   //mensaje de loading
-  ui.showLoading(cardsContainer);
+  ui.showLoading();
 
   //obtenemos los datos
   //capturamos aqui todos los errores. De esta forma centralizamos quien pinta el mensaje de error en la pagina web
@@ -52,6 +52,6 @@ async function showCards(filterText=""){
     if(Array.isArray(data)) ui.renderRuneCards(data);
   }catch(error){
     console.error(error.stack);
-    ui.showError();
+    ui.showError(error.message);
   }
 }

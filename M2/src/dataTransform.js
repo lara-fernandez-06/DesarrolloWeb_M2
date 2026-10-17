@@ -23,7 +23,7 @@ export async function getRuneCardInfo(){
 
     const rawData = await api.getFullFile(api.elderFuthark);
 
-    if(!Array.isArray(rawData)) throw new Error("El archivo no contiene una lista válida.");;
+    if(!Array.isArray(rawData)) throw new Error("The file doesn't contain a valid list");
 
     const poemSources = [
         { key: 'old_icelandic', origin: 'Old Icelandic poem' },
@@ -46,8 +46,8 @@ export async function getRuneCardInfo(){
             application: rune.practical_application,
             //no todas las runas tienen poemas en old_icelandic
             //algunos incluso solo tienen 1 de 3, asi nos aseguramos de que todas las runas tengan poema                
-            poem: availablePoem ? rune.sot_poems[availablePoem.key].translation : "Verso perdido en el tiempo",
-            poemOrigin: availablePoem ? availablePoem.origin : "Tradición Rúnica"
+            poem: rune.sot_poems[availablePoem.key].translation,
+            poemOrigin: availablePoem.origin
             // Omitimos el resto de propiedades del JSON original
         })
 
@@ -64,7 +64,7 @@ export async function getRuneCardInfo(){
 export async function filterCards(filterText = ""){
     const unfiltered = await getRuneCardInfo();
 
-    if(!Array.isArray(unfiltered)) throw new Error("El archivo no contiene una lista válida.");;
+    if(!Array.isArray(unfiltered)) throw new Error("The file doesn't contain a valid list");
 
     return unfiltered.filter(rune => {
         const query = filterText?.toLowerCase();
