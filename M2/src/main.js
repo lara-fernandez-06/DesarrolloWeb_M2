@@ -38,9 +38,14 @@ async function showCards(filterText=""){
   ui.showLoading(cardsContainer);
 
   //obtenemos los datos
-  const data = await db.filterCards(filterText);
+  //capturamos aqui todos los errores. De esta forma centralizamos quien pinta el mensaje de error en la pagina web
+  try{
+    const data = await db.filterCards(filterText);
 
-
-  //renderizamos las tarjetas
-  if(Array.isArray(data)) ui.renderRuneCards(data);
+    //renderizamos las tarjetas
+    if(Array.isArray(data)) ui.renderRuneCards(data);
+  }catch(error){
+    console.error(error.stack);
+    ui.showError();
+  }
 }
