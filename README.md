@@ -16,5 +16,7 @@ Hice a mano: la organización de los archivos, y separar las funciones en las fo
 le especifiqué a la ia, porque tampoco le di todos los datos, y principalmente en las consultas de js le pedía cosas o hacía preguntas concretas
 en vez de pedirle que me hiciese funciones o archivos enteros, porque yo quería entender lo que hacía.
 
-
 ## Autopsia
+Al principio, para la cache Gemini me recomendó guardar dos objetos por set de datos: uno con los propios datos y uno con el timestamp de cuando lo guardamos, para así poder calcular cuánto tiempo había pasado y renovar la cache de vez en cuando. Pero no me convenció el tener que guardar dos objetos relacionados sin aparente relación a primera vista, así que al principio la cache no tenía un time to leave. Después al indagar más, junto con la IA concluimos que la mejor forma de hacerlo era hacer el stringify de un objeto que tuviese dos atributos: data, que guarda los datos, y timestamp, que guarda cuándo se añadió a la caché. Esta forma es mucho más limpia que la que teníamos originalmente, además de más legible, y también mucho mejor que no limpiar la cache nunca.
+
+Otra decisión que tomamos fue que los mensajes de cargando, error y de que no se encontraron runas de acuerdo con la busqueda estuvieran en el mismo contenedor que donde estarían las tarjetas. De esta forma nos aseguramos de que estén visibles para el usuario. Además, todas tienen el mismo formato, lo que simplifica el css y la complejidad del código de la ui en general.
