@@ -56,6 +56,53 @@ export function renderRuneCards(runesArray) {
         const backFace = document.createElement('div');
         backFace.classList.add('card-face', 'card-face-back')
 
+        // Cabecera: Nombre y Caracter en la misma línea
+        const backHeader = document.createElement('header');
+        backHeader.classList.add('back-header');
+
+        const backTitle = document.createElement('h4');
+        backTitle.classList.add('back-title');
+        backTitle.textContent = rune.name;
+
+        const backSymbol = document.createElement('span');
+        backSymbol.classList.add('back-symbol-small');
+        backSymbol.textContent = rune.character;
+
+        backHeader.append(backTitle, backSymbol);
+
+        // Contenedor de los dos textos solicitados
+        const backContent = document.createElement('div');
+        backContent.classList.add('back-content');
+
+        // Bloque 1: Aplicación (Para qué se usaba)
+        const appContainer = document.createElement('div');
+        appContainer.classList.add('back-section');
+
+        const appLabel = document.createElement('span');
+        appLabel.classList.add('back-label');
+        appLabel.textContent = 'USO / APLICACIÓN';
+
+        const appText = document.createElement('p');
+        appText.classList.add('card-description');
+        appText.textContent = rune.application ?? 'Uso tradicional no especificado.';
+
+        appContainer.append(appLabel, appText);
+
+        // Bloque 2: Poema / Frase relacionada (En doradito e cursiva)
+        const poemContainer = document.createElement('div');
+        poemContainer.classList.add('back-section');
+
+        const poemText = document.createElement('p');
+        poemText.classList.add('back-poem');
+        poemText.textContent = `"${rune.poem ?? 'Sabiduría oculta en las brumas.'}"`;
+
+        poemContainer.append(poemText);
+
+        backContent.append(appContainer, poemContainer);
+
+        // Ensamblar la cara trasera
+        backFace.append(backHeader, backContent);
+
         // Ensamblamos la tarjeta
         card.append(frontFace, backFace);
         cardContainer.append(card);
@@ -67,7 +114,8 @@ export function renderRuneCards(runesArray) {
     container.append(...cardNodes);
 }
 
-export function showLoading(container) {
+export function showLoading() {
+    const container = document.querySelector('#runes-container');
     if (!container) return;
     
     container.replaceChildren();
@@ -78,7 +126,8 @@ export function showLoading(container) {
     
 }
 
-export function showError(container) {
+export function showError() {
+    const container = document.querySelector('#runes-container');
     if (!container) return;
     container.replaceChildren();
     const errorMsg = document.createElement('p');

@@ -1,4 +1,5 @@
 import * as api from './api.js'
+import * as ui from'./ui.js'
 
 export function getAllRuneSymbols(){
     const data = api.getFullFile(api.elderFuthark);
@@ -9,18 +10,29 @@ export function getAllRuneSymbols(){
 //en esta funcion nos quedaremos las partes del json que nos interesan para las tarjetas
 export async function getRuneCardInfo(){
 
-    const rawData = await api.getFullFile(api.elderFuthark);
+    try{
+        const rawData = await api.getFullFile(api.elderFuthark);
 
-    if(!Array.isArray(rawData)) return;
+        if(!Array.isArray(rawData)) return;
 
-    return rawData.map(rune => ({
-            rune_id: rune.rune_id,
-            character: rune.character,
-            name: rune.name,
-            system: rune.system,
-            translation: rune.literal_translation
-            // Omitimos el resto de propiedades del JSON original
-    }));
+        return rawData.map(rune => ({
+                rune_id: rune.rune_id,
+                character: rune.character,
+                name: rune.name,
+                system: rune.system,
+                translation: rune.literal_translation,
+                application: rune.practical_application,
+                //no todas las runas tienen poemas en old_icelandic
+                //algunos incluso solo tienen 1 de 3, asi nos aseguramos de que todas las runas tengan poema                
+                poem: rune.sot_poems?.old_icelandic?.translation ?? rune.sot_poems?.old_norwegian?.translation ?? rune.sot_poems?.anglo_saxon?.translation ?? "Verso perdido en el tiempo"
+                // Omitimos el resto de propiedades del JSON original
+        }));
+
+    }catch(error){
+        console.error(error.message);
+        ui.showError()
+    }
+    
 
 }
 

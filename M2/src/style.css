@@ -9,7 +9,7 @@
 @font-face {
     font-family: 'TypeWriter';
     font-style: normal;
-    font-weight: .7;
+    font-weight: 100;
     font-display: auto;
     src: url('./assets/fonts/TypeWriter.ttf');
 }
@@ -171,7 +171,7 @@ body {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
 }
 
-/*cara de delante*/
+/*cara delante*/
 .card-face-front {
     background: linear-gradient(135deg, #141821, #0a0c10);
     border: 1px solid #424242; /* Gris Hierro */
@@ -231,76 +231,81 @@ body {
     font-family: 'TypeWriter', serif;
 }
 
-.empty-message {
-    width: 100%;
-    text-align: center;
-    color: #96a0af;
-    font-size: 1.2rem;
-    padding: 2rem;
+.card-face-back {
+    transform: rotateY(180deg);
+    border-color: #f3c653; /* Borde dorado característico del reverso */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 1.25rem;
+    box-sizing: border-box;
+    text-align: left;
+    gap: 0.75rem;
+    font-family: 'TypeWriter';
 }
 
-/* CONTENEDOR DE TARJETAS (GRID) 
-.runes-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px 20px 80px 20px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
+/* 1. Cabecera: Nombre y símbolo en la misma línea */
+.back-header {
+    border-bottom: 1px solid #424242;
+    padding-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 40%;
 }
 
-/* TARJETAS 
-.rune-card {
-    background: #161b22;
-    border: 1px solid #30363d;
-    border-radius: 12px;
-    padding: 30px 25px;
-    text-align: center;
-    position: relative;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+.back-title {
+    font-size: 1.1rem;
+    color: #f3c653; /* Dorado místico */
+    margin: 0;
+    font-weight: 700;
 }
 
-.rune-card:hover {
-    transform: translateY(-8px);
-    border-color: #d4af37; /* Toque dorado al pasar el cursor 
-    box-shadow: 0 10px 20px rgba(212, 175, 55, 0.15);
-}
-
-/* Símbolo de la runa 
-.rune-symbol {
-    font-size: 3.5rem;
-    color: #d4af37; 
-    margin-bottom: 15px;
-    font-weight: bold;
-    font-family: 'Cinzel', serif;
-    text-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
-}
-
-/* Nombre de la runa 
-.rune-title {
-    font-family: 'Cinzel', serif;
+.back-symbol-small {
     font-size: 1.4rem;
-    color: #f0f6fc;
-    margin-bottom: 10px;
+    color: #e1e1e1;
 }
 
-/* Significado / Dato curioso
-.rune-desc {
-    font-size: 0.95rem;
-    color: #8b949e;
-    line-height: 1.6;
+/* 2. Secciones interiores */
+.back-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    flex-grow: 1;
+    overflow-y: auto; /* Scroll si el texto es muy largo */
+    padding-right: 0.2rem;
 }
 
-/* Pequeña etiqueta de categoría o significado corto
-.rune-tag {
-    display: inline-block;
-    margin-top: 15px;
-    padding: 4px 10px;
-    background: #21262d;
-    color: #d4af37;
-    font-size: 0.8rem;
-    border-radius: 20px;
-    border: 1px solid #30363d;
-    font-family: 'Cinzel', serif;
-}*/
+.back-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+/* Etiquetas pequeñas para ordenar los bloques */
+.back-label {
+    font-size: 0.7rem;
+    color: #96a0af;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+/* Descripción de la aplicación */
+.card-description {
+    font-size: 0.85rem;
+    color: #e1e1e1;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.back-poem {
+    font-size: 0.88rem;
+    color: #f3c653; /* Dorado */
+    font-style: italic;
+    line-height: 1.45;
+    margin: 0;
+    border-left: 2px solid #f3c653;
+    padding-left: 0.5rem;
+    background: rgba(243, 198, 83, 0.03); /* Sutil fondo dorado muy oscuro */
+}

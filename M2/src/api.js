@@ -30,8 +30,7 @@ export async function getFullFile(fileObj) {
 
     }catch (error){
         console.error("No se pudo cargar el archivo", error.message);
-        const container = document.querySelector('#runes-container');
-        ui.showError(container);
+        ui.showError();
         return [];
     }
 }
