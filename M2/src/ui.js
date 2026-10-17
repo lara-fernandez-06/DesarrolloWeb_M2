@@ -14,7 +14,7 @@ export function renderRuneCards(runesArray) {
     //Si no hay resultados del filtro:
     if (runesArray.length === 0) {
         const emptyMessage = document.createElement('p');
-        emptyMessage.textContent = 'No se han hallado runas bajo este designio.';
+        emptyMessage.textContent = 'No runes found under this sign';
         emptyMessage.classList.add('status-message', 'empty');
         container.append(emptyMessage);
         return;
@@ -80,23 +80,34 @@ export function renderRuneCards(runesArray) {
 
         const appLabel = document.createElement('span');
         appLabel.classList.add('back-label');
-        appLabel.textContent = 'USO / APLICACIÓN';
+        appLabel.textContent = 'PRACTICAL APPLICATION';
 
         const appText = document.createElement('p');
         appText.classList.add('card-description');
-        appText.textContent = rune.application ?? 'Uso tradicional no especificado.';
+        appText.textContent = rune.application ?? 'Unknown use.';
 
         appContainer.append(appLabel, appText);
 
         // Bloque 2: Poema / Frase relacionada (En doradito e cursiva)
         const poemContainer = document.createElement('div');
-        poemContainer.classList.add('back-section');
+        poemContainer.classList.add('back-section', 'poem-section');
 
         const poemText = document.createElement('p');
         poemText.classList.add('back-poem');
-        poemText.textContent = `"${rune.poem ?? 'Sabiduría oculta en las brumas.'}"`;
+        poemText.textContent = `"${rune.poem ?? 'Wisdom lost to time.'}"`;
 
-        poemContainer.append(poemText);
+        //no queremos que muestre origen si no lo tiene o si no hay poema
+        if(rune.poem && rune.poemOrigin){
+            const poemOrigin = document.createElement('span');
+            poemOrigin.classList.add('back-poem-origin');
+            poemOrigin.textContent = `— ${rune.poemOrigin}`;
+
+            poemContainer.append(poemText, poemOrigin);
+        }else{
+            poemContainer.append(poemText);
+        }
+        
+        
 
         backContent.append(appContainer, poemContainer);
 
@@ -120,7 +131,7 @@ export function showLoading() {
     
     container.replaceChildren();
     const loadingMsg = document.createElement('p');
-    loadingMsg.textContent = 'Invocando las runas... Cargando sabiduría...';
+    loadingMsg.textContent = 'Invoking runes... Loading wisdom...';
     loadingMsg.classList.add('status-message', 'loading');
     container.append(loadingMsg);
     
@@ -131,7 +142,7 @@ export function showError() {
     if (!container) return;
     container.replaceChildren();
     const errorMsg = document.createElement('p');
-    errorMsg.textContent = 'Se produjo un error';
+    errorMsg.textContent = 'An error occurred';
     errorMsg.classList.add('status-message','error');
     container.append(errorMsg);
 }

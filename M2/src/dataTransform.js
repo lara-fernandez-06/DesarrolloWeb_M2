@@ -15,7 +15,19 @@ export async function getRuneCardInfo(){
 
         if(!Array.isArray(rawData)) return;
 
-        return rawData.map(rune => ({
+        const poemSources = [
+            { key: 'old_icelandic', origin: 'Old Icelandic poem' },
+            { key: 'old_norwegian', origin: 'Old Norwegian poem' },
+            { key: 'anglo_saxon', origin: 'Anglo saxon poem' }
+        ];
+
+        return rawData.map(rune => {
+
+            const availablePoem = poemSources.find(
+                source => rune?.sot_poems?.[source.key]?.translation
+            );
+
+            return ({
                 rune_id: rune.rune_id,
                 character: rune.character,
                 name: rune.name,
@@ -24,9 +36,11 @@ export async function getRuneCardInfo(){
                 application: rune.practical_application,
                 //no todas las runas tienen poemas en old_icelandic
                 //algunos incluso solo tienen 1 de 3, asi nos aseguramos de que todas las runas tengan poema                
-                poem: rune.sot_poems?.old_icelandic?.translation ?? rune.sot_poems?.old_norwegian?.translation ?? rune.sot_poems?.anglo_saxon?.translation ?? "Verso perdido en el tiempo"
+                poem: availablePoem ? rune.sot_poems[availablePoem.key].translation : "Verso perdido en el tiempo",
+                poemOrigin: availablePoem ? availablePoem.origin : "Tradición Rúnica"
                 // Omitimos el resto de propiedades del JSON original
-        }));
+            })
+        });
 
     }catch(error){
         console.error(error.message);

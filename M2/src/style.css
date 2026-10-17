@@ -270,6 +270,7 @@ body {
 .back-content {
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     gap: 0.75rem;
     flex-grow: 1;
     overflow-y: auto; /* Scroll si el texto es muy largo */
@@ -299,7 +300,15 @@ body {
     margin: 0;
 }
 
+.poem-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Alinea el subtítulo del periodo a la derecha */
+    gap: 0.25rem;
+}
+
 .back-poem {
+    width: 100%;
     font-size: 0.88rem;
     color: #f3c653; /* Dorado */
     font-style: italic;
@@ -307,5 +316,15 @@ body {
     margin: 0;
     border-left: 2px solid #f3c653;
     padding-left: 0.5rem;
-    background: rgba(243, 198, 83, 0.03); /* Sutil fondo dorado muy oscuro */
+    background: rgba(243, 198, 83, 0.03);
+    box-sizing: border-box;
+}
+
+.back-poem-origin {
+    font-size: 0.72rem;
+    color: #96a0af; /* Gris secundario fino */
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    font-style: normal;
+    padding-right: 0.2rem;
 }
