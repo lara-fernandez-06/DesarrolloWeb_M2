@@ -36,13 +36,18 @@ export function renderRuneCards(runesArray) {
         title.classList.add('card-title');
         title.textContent = rune.name;
 
-        // Significado (apoyándonos en el operador ?? por seguridad)
+        //Sistema al que pertenece la runa
+        const system = document.createElement('p');
+        system.classList.add('card-description');
+        system.textContent = rune.system;
+
+        // Traduccion
         const translation = document.createElement('span');
         translation.classList.add('card-tag');
         translation.textContent =  rune.translation;
 
         // Ensamblamos la tarjeta
-        card.append(symbolDiv, title, translation);
+        card.append(symbolDiv, title, system, translation);
 
         return card;
     });

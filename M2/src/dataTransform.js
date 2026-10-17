@@ -15,6 +15,7 @@ export async function getRuneCardInfo(){
             rune_id: rune.id,
             character: rune.character,
             name: rune.name,
+            system: rune.system,
             translation: rune.literal_translation
             // Omitimos el resto de propiedades del JSON original
     }));
