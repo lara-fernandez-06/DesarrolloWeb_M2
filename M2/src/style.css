@@ -23,16 +23,19 @@
     }
 }
 
+:root{
+    /*VARIABLES PARA TODO EL CSS*/
+    --stone-dark: #0f131a;
+    --rune-gold: #f3c653;
+    --nordic-frost: #8b9bb4;
+    --rune-gold-glow: rgba(243, 198, 83, 0.4);
+}
+
 body {
     background-color: var(--stone-dark);
     color: #d1d5db;
     font-family: 'Norse', sans-serif;
     overflow-x: hidden;
-
-    /*VARIABLES PARA TODO EL CSS*/
-    --stone-dark: #0f131a;
-    --rune-gold: #f3c653;
-    --rune-gold-glow: rgba(243, 198, 83, 0.4);
 }
 
 .rune-header {
@@ -67,11 +70,10 @@ body {
     text-transform: uppercase;
 }
 
-#header-carousel {
+#rune-carousel {
     width: 100%;
     overflow: hidden;
     background: var(--stone-dark);
-    padding: 0.8rem 0;
     box-sizing: border-box;
     white-space: nowrap;
 }

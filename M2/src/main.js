@@ -62,6 +62,8 @@ async function renderRuneCards(filterText=""){
     if(Array.isArray(data)) ui.renderRuneCards(data);
   }catch(error){
     console.error(error.stack);
-    ui.showError(error.message, loadContent);
+    //ponemos loadContent en caso de que haya sido un error de red (ej) el carrousel pueda volver a cargarse
+    //ya que el carrousel tiene programado fallar silenciosamente para no cargarse la pagina web, así que lo compensamos aqui
+    ui.showError(error.message, renderRuneCards, filterText);
   }
 }

@@ -2,7 +2,7 @@
 //la ui gestiona que ocurre si esto da error y el main le hace catch
 export function getAllRuneSymbols(rawData){
 
-    return rawData.reduce((acc, iteration) => {acc.push(iteration['character']); return acc;}, []); //utilizamos reduce
+    return rawData.map(r => r.character);
     
 }
 
@@ -32,8 +32,8 @@ export function getRuneCardInfo(rawData){
             application: rune.practical_application,
             //no todas las runas tienen poemas en old_icelandic
             //algunos incluso solo tienen 1 de 3, asi nos aseguramos de que todas las runas tengan poema                
-            poem: rune.sot_poems[availablePoem.key].translation,
-            poemOrigin: availablePoem.origin
+            poem: availablePoem ? rune.sot_poems[availablePoem.key].translation : "Wisdom lost to time",
+            poemOrigin: availablePoem ? availablePoem.origin : ""
             // Omitimos el resto de propiedades del JSON original
         })
 

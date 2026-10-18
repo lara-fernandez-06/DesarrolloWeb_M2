@@ -10,7 +10,7 @@ export function renderHeaderCarousel(runesList) {
     container.replaceChildren();
 
     // Creamos el string continuo con las runas (Símbolo + Nombre)
-    const runtextContent = runesList.map(rune => `${rune}`).join('•');
+    const runtextContent = runesList.join('•');
 
     const track = document.createElement('div');
     track.classList.add('carousel-track');
@@ -123,10 +123,10 @@ export function renderRuneCards(runesArray) {
 
         const poemText = document.createElement('p');
         poemText.classList.add('back-poem');
-        poemText.textContent = `"${rune.poem ?? 'Wisdom lost to time.'}"`;
+        poemText.textContent = `"${rune.poem}"`;
 
         //no queremos que muestre origen si no lo tiene o si no hay poema
-        if(rune.poem && rune.poemOrigin){
+        if(rune.poem && (rune.poemOrigin!=="")){
             const poemOrigin = document.createElement('span');
             poemOrigin.classList.add('back-poem-origin');
             poemOrigin.textContent = `— ${rune.poemOrigin}`;
