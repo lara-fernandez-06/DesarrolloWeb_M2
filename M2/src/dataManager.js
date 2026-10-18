@@ -28,7 +28,7 @@ export async function getFilteredCardsInfo(filterText=""){
         cache.setLocalCache(filteredElderDataKey, data);
     } 
 
-    return transform.filterCards(data, filterText);
+    return transform.filterCards(data, filterText ?? "");
 
 
 }
