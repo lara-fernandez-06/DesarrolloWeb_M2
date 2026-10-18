@@ -166,13 +166,38 @@ export function showLoading() {
     
 }
 
-export function showError(message) {
+export function showError(message, onRetry) {
     const container = document.querySelector('#runes-container');
     if (!container) return;
     container.replaceChildren();
+
+    //error message
     const errorMsg = document.createElement('p');
     errorMsg.textContent = `An error occurred: ${message}`;
     errorMsg.classList.add('status-message','error');
-    container.append(errorMsg);
+
+    //reload button
+    const button = document.createElement('button');
+    button.textContent = 'Try Again?';
+    button.classList.add('try-again-btn');
+
+    container.append(errorMsg, button);
+
+    button.addEventListener('click', async () => {
+        button.remove(); // Limpia el botón al hacer clic
+
+        if (typeof onRetry !== 'function') {
+            showError("Retry was not possible. No valid action provided.");
+            return;
+        }
+
+        try {
+            await onRetry();
+        } catch (error) {
+            showError("Retry failed. Please try again.", onRetry);
+        }
+
+    });
+
 }
 

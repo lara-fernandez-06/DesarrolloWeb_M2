@@ -1,5 +1,6 @@
 import * as db from './dataTransform.js'
 import * as ui from './ui.js'
+import * as cache from './cache.js'
 
 const input = document.querySelector('#rune-search');
 const cardsContainer = document.querySelector('#runes-container');
@@ -7,6 +8,11 @@ const cardsContainer = document.querySelector('#runes-container');
 startWeb();
 
 async function startWeb(){
+  addEvents();
+  await loadContent();  
+}
+
+function addEvents(){
 
   input.addEventListener('keydown', function(event) {
     //Comprobamos si la tecla presionada es enter
@@ -14,7 +20,7 @@ async function startWeb(){
       // Evitamos el comportamiento por defecto (por si está dentro de un <form>)
       event.preventDefault(); 
 
-      showCards(input.value);
+      renderRuneCards(input.value);
 
     }  
   });
@@ -28,18 +34,25 @@ async function startWeb(){
     card.classList.toggle('is-flipped');
   });
 
+}
+
+async function loadContent(){
+
+  //carousel (no pasa nada si no se renderiza, no se muere la página, por eso solo da warning)
   try{
-    const runes = await db.getAllRuneSymbols();
-    ui.renderHeaderCarousel(runes);
+    ui.renderHeaderCarousel(await db.getAllRuneSymbols());
   }catch(error){
     console.warn(error.stack);
   }
-  
-  showCards();
-  
+
+  renderRuneCards();
+
 }
 
-async function showCards(filterText=""){
+
+async function renderRuneCards(filterText=""){
+
+  cache.clearRuneCache();
 
   //mensaje de loading
   ui.showLoading();
@@ -52,6 +65,6 @@ async function showCards(filterText=""){
     if(Array.isArray(data)) ui.renderRuneCards(data);
   }catch(error){
     console.error(error.stack);
-    ui.showError(error.message);
+    ui.showError(error.message, loadContent);
   }
 }

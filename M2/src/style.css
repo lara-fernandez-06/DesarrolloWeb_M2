@@ -27,11 +27,10 @@ body {
     background-color: var(--stone-dark);
     color: #d1d5db;
     font-family: 'Norse', sans-serif;
+    overflow-x: hidden;
 
     /*VARIABLES PARA TODO EL CSS*/
     --stone-dark: #0f131a;
-    --stone-card: #161b22;
-    --nordic-frost: #8b9bb4;
     --rune-gold: #f3c653;
     --rune-gold-glow: rgba(243, 198, 83, 0.4);
 }
@@ -71,7 +70,7 @@ body {
 #header-carousel {
     width: 100%;
     overflow: hidden;
-    background: #0f131a;
+    background: var(--stone-dark);
     padding: 0.8rem 0;
     box-sizing: border-box;
     white-space: nowrap;
@@ -91,13 +90,13 @@ body {
     flex-shrink: 0; /* Evita que el navegador intente encoger el bloque */
     font-size: 1.15rem;
     font-weight: 500;
-    color: #f3c653; /* Dorado místico */
+    color: var(--rune-gold); /* Dorado místico */
     letter-spacing: 2px;
 }
 
 /* Destacamos un poco más los símbolos rúnicos */
 .carousel-track span {
-    color: #f3c653;
+    color: var(--rune-gold);
     animation: scrollTicker 35s linear infinite;
 }
 
@@ -141,11 +140,18 @@ body {
 }
 
 /* Contenedor Flex adaptativo */
-.runes-flex-container {
+#runes-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 1.5rem;
+}
+
+/* Si el contenedor contiene un botón .try-again-btn o .status-message.error, pasa a columna */
+#runes-container:has(.try-again-btn),
+#runes-container:has(.status-message.error) {
+    flex-direction: column;
+    align-items: center;
 }
 
 .status-message {
@@ -158,7 +164,7 @@ body {
 
 /* Variantes según el tipo de estado */
 .status-message.loading {
-    color: #f3c653; /* Dorado místico para el estado de carga */
+    color: var(--rune-gold); /* Dorado místico para el estado de carga */
 }
 
 .status-message.error {
@@ -167,6 +173,26 @@ body {
 
 .status-message.empty {
     color: #96a0af; /* Gris secundario para cuando la búsqueda no da resultados */
+}
+
+.try-again-btn {
+    /*margin: 1rem auto 0 auto; /* Centra el botón horizontalmente y deja espacio arriba */
+    padding: 0.6rem 1.4rem;
+    background-color: transparent;
+    border: 2px solid var(--rune-gold); /* Dorado místico */
+    color: var(--rune-gold);
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.try-again-btn:hover {
+    background-color: var(--rune-gold);
+    color: var(--stone-dark); /* Fondo oscuro al pasar el ratón */
+    box-shadow: 0 0 10px var(--rune-gold-glow)
 }
 
 /* Tarjeta individual */
@@ -216,21 +242,20 @@ body {
 
 /*cara delante*/
 .card-face-front {
-    background: linear-gradient(135deg, #141821, #0a0c10);
-    border: 1px solid #424242; /* Gris Hierro */
-    border-radius: 6px;
-    padding: 1.5rem;
-    text-align: center;
-    
-    flex: 1 1 260px;
-    
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
     transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card-face-back {
     transform: rotateY(180deg);
-    border-color: #f3c653; /* Un toque dorado diferenciador para la parte trasera */
+    border-color: var(--rune-gold); 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 1.25rem;
+    box-sizing: border-box;
+    text-align: left;
+    gap: 0.75rem;
+    font-family: 'TypeWriter';
 }
 
 .rune-card-container:hover{
@@ -246,7 +271,7 @@ body {
     font-size: 3.5rem;
     color:  var(--rune-gold);
     margin-bottom: 0.5rem;
-    text-shadow: 0 0 10px rgba(243, 198, 83, 0.4);
+    text-shadow: 0 0 10px var(--rune-gold-glow);
 }
 
 .card-title {
@@ -274,20 +299,7 @@ body {
     font-family: 'TypeWriter', serif;
 }
 
-.card-face-back {
-    transform: rotateY(180deg);
-    border-color: #f3c653; /* Borde dorado característico del reverso */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    padding: 1.25rem;
-    box-sizing: border-box;
-    text-align: left;
-    gap: 0.75rem;
-    font-family: 'TypeWriter';
-}
 
-/* 1. Cabecera: Nombre y símbolo en la misma línea */
 .back-header {
     border-bottom: 1px solid #424242;
     padding-bottom: 0.5rem;
@@ -299,7 +311,7 @@ body {
 
 .back-title {
     font-size: 1.1rem;
-    color: #f3c653; /* Dorado místico */
+    color: var(--rune-gold); /* Dorado místico */
     margin: 0;
     font-weight: 700;
 }
@@ -309,7 +321,7 @@ body {
     color: #e1e1e1;
 }
 
-/* 2. Secciones interiores */
+
 .back-content {
     display: flex;
     flex-direction: column;
@@ -326,7 +338,7 @@ body {
     gap: 0.2rem;
 }
 
-/* Etiquetas pequeñas para ordenar los bloques */
+
 .back-label {
     font-size: 0.7rem;
     color: #96a0af;
@@ -353,11 +365,11 @@ body {
 .back-poem {
     width: 100%;
     font-size: 0.88rem;
-    color: #f3c653; /* Dorado */
+    color: var(--rune-gold); 
     font-style: italic;
     line-height: 1.45;
     margin: 0;
-    border-left: 2px solid #f3c653;
+    border-left: 2px solid var(--rune-gold);
     padding-left: 0.5rem;
     background: rgba(243, 198, 83, 0.03);
     box-sizing: border-box;

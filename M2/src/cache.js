@@ -10,7 +10,8 @@ export function getLocalCache(key) {
 
         // Comprobamos si ha pasado más de 1 hora desde que se guardó
         if (now - timestamp > CACHE_DURATION) {
-            localStorage.removeItem(key); // Limpiamos la caché caducada
+            if(key === 'elderFuthark') clearRuneCache();
+            else clearLocalCache(key); // Limpiamos la caché caducada
             return null;
         }
 
@@ -37,4 +38,10 @@ export function setLocalCache(key, data) {
 
 export function clearLocalCache(cacheKey) {
     localStorage.removeItem(cacheKey);
+}
+
+// Limpieza sincronizada para evitar desincronizaciones
+export function clearRuneCache() {
+    clearLocalCache('elderFuthark');
+    clearLocalCache('runeCardInfoKey');
 }
