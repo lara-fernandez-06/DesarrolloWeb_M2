@@ -23,3 +23,5 @@ Al principio, para la cache Gemini me recomendó guardar dos objetos por set de 
 Otra decisión que tomamos fue que los mensajes de cargando, error y de que no se encontraron runas de acuerdo con la busqueda estuvieran en el mismo contenedor que donde estarían las tarjetas. De esta forma nos aseguramos de que estén visibles para el usuario. Además, todas tienen el mismo formato, lo que simplifica el css y la complejidad del código de la ui en general.
 
 También, decidí separar la api y dataTransform , para que así la primera tuviese la única responsablidad de pedirle datos a la api, mientras que la segunda se encarga de trabajar con ellos. En este caso, solo trabajamos con el archivo de runas, pero si se llegase a implementar más archivos, creo que esta forma lo haría más fácil de entender, antes de tener tanto código junto que, aunque depende uno del otro, tiene fucniones muy distintas.
+
+Al final del proyecto, tras la recomendación de Web Arena separar aún más las responsabilidades de cada archivo, he creado dataManager, de esta forma ni dataTransform ni api tienen que tocar la cache, y el nuevo archivo se encarga de manejar el uso de los datos

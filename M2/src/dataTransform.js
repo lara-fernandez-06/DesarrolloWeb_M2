@@ -1,27 +1,13 @@
-import * as api from './api.js'
-import * as cache from './cache.js'
 
-//la ui gestiona que ocurre si esto da error
-export async function getAllRuneSymbols(){
-    try{
-        const data = await api.getFullFile(api.elderFuthark);
+//la ui gestiona que ocurre si esto da error y el main le hace catch
+export function getAllRuneSymbols(rawData){
 
-        return data.reduce((acc, iteration) => {acc.push(iteration['character']); return acc;}, []); //utilizamos reduce
-
-    }catch(error){
-        console.error(error.stack);
-    }
+    return rawData.reduce((acc, iteration) => {acc.push(iteration['character']); return acc;}, []); //utilizamos reduce
     
 }
 
 //en esta funcion nos quedaremos las partes del json que nos interesan para las tarjetas
-export async function getRuneCardInfo(){
-
-    //guardamos esta transformacion tambien en la cache para no hacerla cada vez que cargarmos las cartas
-    const cached = cache.getLocalCache('runeCardInfoKey');
-    if(cached) return cached;
-
-    const rawData = await api.getFullFile(api.elderFuthark);
+export function getRuneCardInfo(rawData){
 
     if(!Array.isArray(rawData)) throw new Error("The file doesn't contain a valid list");
 
@@ -53,20 +39,17 @@ export async function getRuneCardInfo(){
 
     });
 
-    cache.setLocalCache('runeCardInfoKey', transformedData);
-
     return transformedData;    
 
 }
 
 //especificamente filtra la info ya preparada para las cartas
 //dejamos a la funcion de ui que gestione el caso de que no haya nada (no vamos a renderizar nada desde aqui)
-export async function filterCards(filterText = ""){
-    const unfiltered = await getRuneCardInfo();
+export function filterCards(unfilteredData, filterText = ""){
 
-    if(!Array.isArray(unfiltered)) throw new Error("The file doesn't contain a valid list");
+    if(!Array.isArray(unfilteredData)) throw new Error("The file doesn't contain a valid list");
 
-    return unfiltered.filter(rune => {
+    return unfilteredData.filter(rune => {
         const query = filterText?.toLowerCase();
         const nameMatch = rune.name?.toLowerCase().includes(query);
         const translationMatch = rune.translation && rune.translation?.toLowerCase().includes(query);

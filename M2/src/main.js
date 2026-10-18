@@ -1,6 +1,5 @@
-import * as db from './dataTransform.js'
+import * as dm from './dataManager.js'
 import * as ui from './ui.js'
-import * as cache from './cache.js'
 
 const input = document.querySelector('#rune-search');
 const cardsContainer = document.querySelector('#runes-container');
@@ -40,7 +39,7 @@ async function loadContent(){
 
   //carousel (no pasa nada si no se renderiza, no se muere la página, por eso solo da warning)
   try{
-    ui.renderHeaderCarousel(await db.getAllRuneSymbols());
+    ui.renderHeaderCarousel(await dm.getAllRuneSymbols());
   }catch(error){
     console.warn(error.stack);
   }
@@ -52,15 +51,13 @@ async function loadContent(){
 
 async function renderRuneCards(filterText=""){
 
-  cache.clearRuneCache();
-
   //mensaje de loading
   ui.showLoading();
 
   //obtenemos los datos
   //capturamos aqui todos los errores. De esta forma centralizamos quien pinta el mensaje de error en la pagina web
   try{
-    const data = await db.filterCards(filterText);
+    const data = await dm.getFilteredCardsInfo(filterText);
     //renderizamos las tarjetas
     if(Array.isArray(data)) ui.renderRuneCards(data);
   }catch(error){
