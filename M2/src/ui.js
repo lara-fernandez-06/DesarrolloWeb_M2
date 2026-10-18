@@ -166,7 +166,7 @@ export function showLoading() {
     
 }
 
-export function showError(message, onRetry) {
+export function showError(message, onRetry, ...params) {
     const container = document.querySelector('#runes-container');
     if (!container) return;
     container.replaceChildren();
@@ -192,9 +192,9 @@ export function showError(message, onRetry) {
         }
 
         try {
-            await onRetry();
+            await onRetry(...params);
         } catch (error) {
-            showError("Retry failed. Please try again.", onRetry);
+            showError("Retry failed. Please try again.", onRetry, ...params);
         }
 
     });
